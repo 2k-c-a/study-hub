@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>study-hub · 스터디 모임</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">study-hub</a>
+    <nav class="site-nav">
+      <a href="index.html">모임 목록</a>
+      <a href="login.html">로그인</a>
+      <a href="signup.html">회원가입</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="page-head">
+      <h1>스터디 모임</h1>
+      <p class="page-desc">함께 공부할 모임을 찾거나 새로 만들어 보세요.</p>
+    </section>
+
+    <!-- 모임 만들기 폼: js/form.js -->
+    <section id="study-form-area"></section>
+
+    <!-- 모임 목록: js/list.js -->
+    <section>
+      <ul id="study-list" class="study-list"></ul>
+    </section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/list.js"></script>
+</body>
+</html>
