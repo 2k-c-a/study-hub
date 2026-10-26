@@ -27,3 +27,18 @@ def list_studies():
     with get_conn() as conn:
         rows = conn.execute("SELECT * FROM studies ORDER BY id").fetchall()
     return [dict(row) for row in rows]
+
+
+def create_study(title, description="", place="", max_members=4):
+    with get_conn() as conn:
+        cur = conn.execute(
+            "INSERT INTO studies (title, description, place, max_members) VALUES (?, ?, ?, ?)",
+            (title, description, place, max_members),
+        )
+        return cur.lastrowid
+
+
+def delete_study(study_id):
+    with get_conn() as conn:
+        cur = conn.execute("DELETE FROM studies WHERE id = ?", (study_id,))
+        return cur.rowcount > 0
