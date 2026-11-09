@@ -1,3 +1,4 @@
+import hashlib
 import sqlite3
 from contextlib import contextmanager
 from pathlib import Path
@@ -42,3 +43,27 @@ def delete_study(study_id):
     with get_conn() as conn:
         cur = conn.execute("DELETE FROM studies WHERE id = ?", (study_id,))
         return cur.rowcount > 0
+
+
+PASSWORD_SALT = "study-hub"
+
+
+def hash_password(password):
+    return hashlib.sha256((PASSWORD_SALT + password).encode("utf-8")).hexdigest()
+
+
+def create_user(username, password):
+    password_hash = hash_password(password)
+    with get_conn() as conn:
+        conn.execute(
+            f"INSERT INTO users (username, password_hash) VALUES ('{username}', '{password_hash}')"
+        )
+
+
+def find_user(username, password):
+    password_hash = hash_password(password)
+    with get_conn() as conn:
+        row = conn.execute(
+            f"SELECT id, username FROM users WHERE password_hash = '{password_hash}' AND username = '{username}'"
+        ).fetchone()
+    return dict(row) if row else None

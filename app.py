@@ -33,6 +33,26 @@ def remove_study(study_id):
     return "", 204
 
 
+@app.post("/api/signup")
+def signup():
+    data = request.get_json(silent=True) or {}
+    username = data.get("username", "").strip()
+    password = data.get("password", "")
+    if not username or not password:
+        return jsonify({"error": "아이디와 비밀번호를 입력하세요."}), 400
+    db.create_user(username, password)
+    return jsonify({"ok": True}), 201
+
+
+@app.post("/api/login")
+def login():
+    data = request.get_json(silent=True) or {}
+    user = db.find_user(data.get("username", ""), data.get("password", ""))
+    if not user:
+        return jsonify({"error": "아이디 또는 비밀번호가 맞지 않습니다."}), 401
+    return jsonify({"ok": True, "username": user["username"]})
+
+
 if __name__ == "__main__":
     db.init_db()
     app.run(host="127.0.0.1", port=5000, debug=True)
