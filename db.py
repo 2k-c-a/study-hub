@@ -54,10 +54,13 @@ def hash_password(password):
 
 def create_user(username, password):
     password_hash = hash_password(password)
-    with get_conn() as conn:
-        conn.execute(
-            f"INSERT INTO users (username, password_hash) VALUES ('{username}', '{password_hash}')"
-        )
+    try:
+        with get_conn() as conn:
+            conn.execute(
+                f"INSERT INTO users (username, password_hash) VALUES ('{username}', '{password_hash}')"
+            )
+    except sqlite3.IntegrityError:
+        raise ValueError("이미 사용 중인 아이디입니다.")
 
 
 def find_user(username, password):
