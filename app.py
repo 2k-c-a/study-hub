@@ -18,11 +18,15 @@ def get_studies():
 @app.post("/api/studies")
 def post_study():
     data = request.get_json(silent=True) or {}
+    try:
+        max_members = int(data.get("max_members", 4))
+    except (TypeError, ValueError):
+        return jsonify({"error": "인원 수는 숫자로 입력하세요."}), 400
     study_id = db.create_study(
         data.get("title", ""),
         data.get("description", ""),
         data.get("place", ""),
-        int(data.get("max_members", 4)),
+        max_members,
     )
     return jsonify({"id": study_id}), 201
 
@@ -51,6 +55,21 @@ def login():
     if not user:
         return jsonify({"error": "아이디 또는 비밀번호가 맞지 않습니다."}), 401
     return jsonify({"ok": True, "username": user["username"]})
+
+
+@app.errorhandler(ValueError)
+def handle_value_error(error):
+    return jsonify({"error": str(error)}), 400
+
+
+@app.errorhandler(404)
+def handle_not_found(error):
+    return jsonify({"error": "요청한 주소를 찾을 수 없습니다."}), 404
+
+
+@app.errorhandler(500)
+def handle_server_error(error):
+    return jsonify({"error": "서버에서 문제가 생겼습니다. 잠시 후 다시 시도하세요."}), 500
 
 
 if __name__ == "__main__":
