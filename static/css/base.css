@@ -41,3 +41,16 @@ a { color: var(--primary); text-decoration: none; }
 
 .page-head h1 { margin: 0 0 4px; font-size: 26px; }
 .page-desc { margin: 0 0 24px; color: var(--muted); }
+
+/* 로그인 · 회원가입 */
+.auth-box {
+  max-width: 380px;
+  margin: 40px auto;
+  padding: 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.auth-box h1 { margin: 0 0 18px; font-size: 22px; }
+.auth-box .btn { width: 100%; }
+.auth-switch { margin: 14px 0 0; text-align: center; color: var(--muted); font-size: 14px; }
