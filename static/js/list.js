@@ -18,7 +18,12 @@ function studyCard(study) {
   remove.type = 'button';
   remove.addEventListener('click', async () => {
     if (!confirm(`'${study.title}' 모임을 삭제할까요?`)) return;
-    await api.deleteStudy(study.id);
+    try {
+      await api.deleteStudy(study.id);
+      await renderStudies();
+    } catch (error) {
+      alert(error.message);
+    }
   });
   li.append(title, desc, meta, remove);
   return li;
