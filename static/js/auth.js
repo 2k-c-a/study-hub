@@ -22,7 +22,7 @@ function bindAuthForm(formId, url, onSuccess) {
     };
     const { ok, data } = await postJson(url, body);
     if (!ok) {
-      message.textContent = '요청을 처리하지 못했습니다.';
+      message.textContent = data.error || '요청을 처리하지 못했습니다.';
       return;
     }
     onSuccess(data);
