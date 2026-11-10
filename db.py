@@ -30,6 +30,12 @@ def list_studies():
     return [dict(row) for row in rows]
 
 
+def get_study(study_id):
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM studies WHERE id = ?", (study_id,)).fetchone()
+    return dict(row) if row else None
+
+
 def create_study(title, description="", place="", max_members=4):
     with get_conn() as conn:
         cur = conn.execute(
