@@ -18,14 +18,16 @@ def get_studies():
 @app.post("/api/studies")
 def post_study():
     data = request.get_json(silent=True) or {}
+    if not str(data.get("title", "")).strip():
+        return jsonify({"error": "모임 이름을 입력하세요."}), 400
     try:
         max_members = int(data.get("max_members", 4))
     except (TypeError, ValueError):
         return jsonify({"error": "인원 수는 숫자로 입력하세요."}), 400
     study_id = db.create_study(
-        data.get("title", ""),
-        data.get("description", ""),
-        data.get("place", ""),
+        str(data.get("title", "")),
+        str(data.get("description", "")),
+        str(data.get("place", "")),
         max_members,
     )
     return jsonify({"id": study_id}), 201
