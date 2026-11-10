@@ -31,6 +31,14 @@ def post_study():
     return jsonify({"id": study_id}), 201
 
 
+@app.get("/api/studies/<int:study_id>")
+def get_study(study_id):
+    study = db.get_study(study_id)
+    if not study:
+        return jsonify({"error": "모임을 찾을 수 없습니다."}), 404
+    return jsonify(study)
+
+
 @app.delete("/api/studies/<int:study_id>")
 def remove_study(study_id):
     db.delete_study(study_id)
