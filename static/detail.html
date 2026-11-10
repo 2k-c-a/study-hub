@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>모임 · study-hub</title>
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html">study-hub</a>
+    <nav class="site-nav">
+      <a href="index.html">모임 목록</a>
+      <a href="login.html">로그인</a>
+      <a href="signup.html">회원가입</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <p><a href="index.html">‹ 모임 목록</a></p>
+    <!-- 새 모임: detail.html?new=1 · 모임 상세: detail.html?id=1 -->
+    <section id="study-detail" class="card"></section>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>
