@@ -10,3 +10,6 @@ function applySearch() {
 }
 
 searchInput.addEventListener('input', applySearch);
+
+// 목록이 다시 그려져도(삭제 후 등) 검색어를 유지한다.
+new MutationObserver(applySearch).observe(document.getElementById('study-list'), { childList: true });
