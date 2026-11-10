@@ -23,10 +23,25 @@
 }
 
 .card {
+  min-width: 260px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.card h3 a { color: var(--text); }
+.card h3 a:hover { color: var(--primary); }
+.tag {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #eef1fd;
+  color: var(--primary-dark);
+  font-size: 12px;
 }
 .card h3 { margin: 0 0 6px; font-size: 17px; }
 .card p { margin: 0 0 8px; color: var(--muted); font-size: 14px; }

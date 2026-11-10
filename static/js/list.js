@@ -13,7 +13,8 @@ function studyCard(study) {
   link.href = `detail.html?id=${study.id}`;
   title.append(link);
   const desc = el('p', '', study.description || '');
-  const meta = el('p', 'meta', `${study.place || '장소 미정'} · 최대 ${study.max_members}명`);
+  const meta = el('p', 'meta');
+  meta.append(el('span', 'tag', study.place || '장소 미정'), el('span', 'tag', `최대 ${study.max_members}명`));
   const remove = el('button', 'btn btn-danger', '삭제');
   remove.type = 'button';
   remove.addEventListener('click', async () => {
