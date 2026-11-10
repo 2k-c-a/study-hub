@@ -37,10 +37,13 @@ def get_study(study_id):
 
 
 def create_study(title, description="", place="", max_members=4):
+    title = (title or "").strip()
+    if not title:
+        raise ValueError("모임 이름을 입력하세요.")
     with get_conn() as conn:
         cur = conn.execute(
             "INSERT INTO studies (title, description, place, max_members) VALUES (?, ?, ?, ?)",
-            (title, description, place, max_members),
+            (title, description.strip(), place.strip(), max_members),
         )
         return cur.lastrowid
 
