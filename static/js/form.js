@@ -35,4 +35,29 @@ function renderCreateForm() {
   area.replaceChildren(form);
 }
 
+function line(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  node.textContent = text;
+  return node;
+}
+
+async function renderDetail(id) {
+  const study = await request(`/api/studies/${id}`);
+  document.title = `${study.title} · study-hub`;
+  const edit = line('button', 'btn', '모임 수정');
+  edit.type = 'button';
+  edit.addEventListener('click', () => {
+    // TODO: 모임 수정 (PUT /api/studies/<id>)
+  });
+  area.replaceChildren(
+    line('h1', '', study.title),
+    line('p', '', study.description || '소개가 아직 없습니다.'),
+    line('p', 'meta', `장소: ${study.place || '미정'} · 최대 ${study.max_members}명`),
+    line('p', 'meta', `만든 날: ${study.created_at}`),
+    edit,
+  );
+}
+
 if (params.has('new')) renderCreateForm();
+else if (params.get('id')) renderDetail(params.get('id'));
