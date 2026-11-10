@@ -24,6 +24,8 @@ def post_study():
         max_members = int(data.get("max_members", 4))
     except (TypeError, ValueError):
         return jsonify({"error": "인원 수는 숫자로 입력하세요."}), 400
+    if not 2 <= max_members <= 20:
+        return jsonify({"error": "인원 수는 2명에서 20명 사이로 정하세요."}), 400
     study_id = db.create_study(
         str(data.get("title", "")),
         str(data.get("description", "")),
